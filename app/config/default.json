@@ -2,16 +2,16 @@
   "postgresql": {
     "user": "root",
     "password": "root",
-    "host": "localhost",
+    "host": "postgres",
     "port": 5432,
     "database": "db"
   },
   "mongodb": {
-    "url": "mongodb://localhost:27017/db"
+    "url": "mongodb://mongo:27017/db"
   },
   "user": "root",
   "password": "root",
-  "host": "localhost",
+  "host": "postgres",
   "port": 5432,
   "database": "db"
 }

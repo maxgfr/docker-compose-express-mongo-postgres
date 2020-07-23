@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "prod": "npm run migrate up && npm start",
     "dev": "nodemon index.js",
     "migrate": "node-pg-migrate --config-file ./config/default.json",
     "test": "echo \"Error: no test specified\" && exit 1"

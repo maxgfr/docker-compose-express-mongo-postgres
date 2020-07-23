@@ -60,17 +60,7 @@ services:
     depends_on:
       - "mongo"
       - "postgres"
-    command:
-      [
-        "/wait-for-it.sh",
-        "postgres:5432",
-        "mongo:27017",
-        "--",
-        "npm",
-        "run",
-        "migrate",
-        "up",
-      ]
+    command: ["/wait-for-it.sh", "postgres:5432", "--", "npm", "run", "prod"]
     ports:
       - "3000:3000"
     volumes:

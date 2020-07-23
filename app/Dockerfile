@@ -21,9 +21,3 @@ COPY ./scripts/wait-for-it.sh /wait-for-it.sh
 
 # Make the script executable
 RUN chmod +x /wait-for-it.sh
-
-# Run the migration
-CMD ["npm", "run", "migrate", "up"]
-
-# Run the app when the container launches
-CMD ["npm", "start"]
