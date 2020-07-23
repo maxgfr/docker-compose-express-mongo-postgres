@@ -1,0 +1,17 @@
+{
+  "postgresql": {
+    "user": "root",
+    "password": "root",
+    "host": "localhost",
+    "port": 5432,
+    "database": "db"
+  },
+  "mongodb": {
+    "url": "mongodb://localhost:27017/db"
+  },
+  "user": "root",
+  "password": "root",
+  "host": "localhost",
+  "port": 5432,
+  "database": "db"
+}
