@@ -53,6 +53,32 @@ services:
     networks:
       - webnet
 
+  app:
+    container_name: app
+    build: ./app
+    restart: always
+    depends_on:
+      - "mongo"
+      - "postgres"
+    command:
+      [
+        "/wait-for-it.sh",
+        "postgres:5432",
+        "mongo:27017",
+        "--",
+        "npm",
+        "run",
+        "migrate",
+        "up",
+      ]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/server
+      - /app/node_modules
+    networks:
+      - webnet
+
 volumes:
   db-data:
     driver: local

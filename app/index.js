@@ -3,19 +3,19 @@ const config = require("config");
 const app = express();
 const port = process.env.port || 3000;
 const mongoose = require("mongoose");
-const {
-  Pool
-} = require("pg");
+const User = require("./model/user.js");
+const { Pool } = require("pg");
 const pool = new Pool(config.get("postgresql"));
 
-mongoose.connect(config.get("mongodb.url"), {
+mongoose
+  .connect(config.get("mongodb.url"), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(res => {
+  .then(() => {
     console.log("MongoDB - inialized");
   })
-  .catch(err => {
+  .catch(() => {
     console.log("MongoDB - error during initialization");
   });
 
@@ -26,23 +26,25 @@ app.get("/", (req, res) => {
 });
 
 app.get("/mongodb", (req, res) => {
-  const User = mongoose.model("User", {
-    name: String,
-  });
-  const user = new User({
+  var user = new User({
     name: "max",
   });
-  user.save()
-    .then((res) => {
+  user.save(function (err) {
+    if (err) console.log(err);
+    console.log("ok");
+  });
+  user
+    .save()
+    .then(res => {
       res.json({
         success: true,
-        data: res
+        data: res,
       });
     })
-    .catch((err) => {
+    .catch(err => {
       res.json({
         success: false,
-        error: err
+        error: "error",
       });
     });
 });
@@ -55,14 +57,14 @@ app.get("/postgres", (req, res) => {
         client.release();
         res.json({
           success: true,
-          data: result.rows
+          data: result.rows,
         });
       })
       .catch(err => {
         client.release();
         res.json({
           success: false,
-          error: err.stack
+          error: err.stack,
         });
       });
   });
