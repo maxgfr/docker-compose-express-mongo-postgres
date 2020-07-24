@@ -1,6 +1,6 @@
-# docker-express-db-stack
+# docker-compose-express-mongo-postgres
 
-This project is an implementation of a stack based on Docker using MongoDB, PostgreSQL, Express JS (Node.js)
+This project is an implementation of a stack based on Docker (docker-compose) using MongoDB, PostgreSQL, Express JS (Node.js)
 
 ## Building & Running
 
