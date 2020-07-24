@@ -4,9 +4,13 @@ const winston = require("winston");
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
-  defaultMeta: { service: "user-service" },
+  defaultMeta: {
+    service: "user-service"
+  },
   transports: [
-    new winston.transports.File({ filename: "./log/all.log" }),
+    new winston.transports.File({
+      filename: "./log/all.log"
+    }),
     new winston.transports.Console({
       format: winston.format.simple(),
     }),
@@ -17,7 +21,9 @@ const app = express();
 const port = process.env.port || 3000;
 const mongoose = require("mongoose");
 const User = require("./model/user.js");
-const { Pool } = require("pg");
+const {
+  Pool
+} = require("pg");
 const pool = new Pool(config.get("postgresql"));
 
 mongoose
@@ -52,10 +58,10 @@ app.get("/mongodb", (req, res) => {
   });
   user
     .save()
-    .then(res => {
+    .then(result => {
       res.json({
         success: true,
-        data: res,
+        data: result,
       });
     })
     .catch(err => {

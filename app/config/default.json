@@ -7,7 +7,7 @@
     "database": "db"
   },
   "mongodb": {
-    "url": "mongodb://mongo:27017/db"
+    "url": "mongodb://user:pass@mongo:27017/db"
   },
   "user": "root",
   "password": "root",
