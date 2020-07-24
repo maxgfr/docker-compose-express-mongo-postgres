@@ -1,5 +1,18 @@
 const express = require("express");
 const config = require("config");
+const winston = require("winston");
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  defaultMeta: { service: "user-service" },
+  transports: [
+    new winston.transports.File({ filename: "./log/all.log" }),
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    }),
+  ],
+});
+winston.add(logger);
 const app = express();
 const port = process.env.port || 3000;
 const mongoose = require("mongoose");
@@ -13,11 +26,19 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("MongoDB - inialized");
+    winston.info("MongoDB - initialized");
   })
   .catch(() => {
-    console.log("MongoDB - error during initialization");
+    winston.error("MongoDB - error during initialization");
   });
+
+mongoose.connection.on("connected", () => {
+  winston.info("Mongoose connected!");
+});
+
+mongoose.connection.on("disconnected", () => {
+  winston.error("Mongoose disconnected!");
+});
 
 app.get("/", (req, res) => {
   res.json({
@@ -28,10 +49,6 @@ app.get("/", (req, res) => {
 app.get("/mongodb", (req, res) => {
   var user = new User({
     name: "max",
-  });
-  user.save(function (err) {
-    if (err) console.log(err);
-    console.log("ok");
   });
   user
     .save()
@@ -44,7 +61,7 @@ app.get("/mongodb", (req, res) => {
     .catch(err => {
       res.json({
         success: false,
-        error: "error",
+        error: err,
       });
     });
 });
@@ -70,4 +87,4 @@ app.get("/postgres", (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`App listening at this ${port}`));
+app.listen(port, () => winston.info(`App listening at this port : ${port}`));

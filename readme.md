@@ -6,7 +6,7 @@ This project is an implementation of a stack based on Docker using MongoDB, Post
 
 ```
 # to build and run it :
-docker-compose up --build
+docker-compose up --build --force-recreate --renew-anon-volumes
 # to stop and delete it :
-docker-compose down --rmi 'all'
+docker-compose down
 ```
