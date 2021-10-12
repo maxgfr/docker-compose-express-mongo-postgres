@@ -16,7 +16,7 @@
     "config": "^3.3.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.25",
-    "node-pg-migrate": "^5.3.0",
+    "node-pg-migrate": "^5.10.0",
     "pg": "^8.3.0",
     "winston": "^3.3.3"
   },
